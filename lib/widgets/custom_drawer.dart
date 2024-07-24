@@ -7,11 +7,12 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
+          SizedBox(height: 30),
           Container(
             color: Colors.transparent,
             child: Column(
               children: [
-                SizedBox(height: 20), // Espacio para separar el borde superior
+                SizedBox(height: 20),
                 Container(
                   width: 80,
                   height: 80,
@@ -28,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
                 SizedBox(height: 10),
                 Center(
                   child: Text(
-                    'John Watson',
+                    'Marc Flow',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -60,7 +61,7 @@ class CustomDrawer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 16), // Espaciado adicional
+                SizedBox(height: 16),
                 Row(
                   children: [
                     Text(
@@ -72,10 +73,10 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "Izmir",
+                  "Cullera",
                   style: TextStyle(color: Colors.teal, fontSize: 14),
                 ),
-                SizedBox(height: 16), // Espaciado adicional
+                SizedBox(height: 16),
                 Text(
                   "Add/Change Location",
                   style: TextStyle(color: Colors.black, fontSize: 14),

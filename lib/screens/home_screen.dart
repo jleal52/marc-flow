@@ -3,6 +3,7 @@ import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/weather_widget.dart';
 import '../widgets/location_card.dart';
 import '../widgets/custom_drawer.dart';
+import 'favorites_screen.dart'; // Importa el archivo de la nueva pantalla de favoritos
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static List<Widget> _widgetOptions = <Widget>[
     HomeContent(),
-    FavoritesScreen(),
+    FavoritesScreen(), // Usa la nueva implementación
     SearchScreen(),
     MapsScreen(),
   ];
@@ -31,23 +32,39 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(Icons.menu, color: Theme.of(context).iconTheme.color),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
+        leading: _selectedIndex == 0
+            ? Builder(
+                builder: (context) => IconButton(
+                  icon: Icon(Icons.menu, color: Theme.of(context).iconTheme.color),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              )
+            : IconButton(
+                icon: Icon(Icons.arrow_back, color: Color(0xFF40D3C4)),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                },
+              ),
+        title: Text(
+          _selectedIndex == 0 ? 'Home' : 'Favorite Locations',
+          style: TextStyle(color: Colors.black),
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications, color: Theme.of(context).iconTheme.color),
+            icon: Icon(Icons.notifications, color: Color(0xFF40D3C4)),
             onPressed: () {},
           ),
         ],
       ),
-      drawer: CustomDrawer(),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      drawer: _selectedIndex == 0 ? CustomDrawer() : null,
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
+      ),
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
@@ -65,7 +82,7 @@ class HomeContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hello John',
+            'Hello Marc Flow',
             style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           Text(
@@ -140,15 +157,6 @@ class HomeContent extends StatelessWidget {
           LocationCard(),
         ],
       ),
-    );
-  }
-}
-
-class FavoritesScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Favorites Screen'),
     );
   }
 }
